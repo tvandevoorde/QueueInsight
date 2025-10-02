@@ -1,6 +1,6 @@
 # QueueInsight
 
-A lightweight web application for managing and monitoring RabbitMQ queues, similar to QueueExplorer. Built with ASP.NET Core 9 Web API and Angular 17.
+A lightweight web application for managing and monitoring RabbitMQ queues. Built with ASP.NET Core 9 Web API and Angular 17.
 
 ## Features
 
