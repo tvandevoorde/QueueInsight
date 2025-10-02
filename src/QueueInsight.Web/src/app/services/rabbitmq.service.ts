@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { 
-  VirtualHost, 
-  Queue, 
-  MessageResponse, 
-  PublishMessageRequest, 
-  DeleteMessageRequest, 
-  MoveMessageRequest 
+import {
+  VirtualHost,
+  Queue,
+  MessageResponse,
+  PublishMessageRequest,
+  DeleteMessageRequest,
+  MoveMessageRequest
 } from '../models/rabbitmq.models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RabbitmqService {
-  private apiUrl = 'http://localhost:5000/api';
+  private apiUrl = '/api';
 
   constructor(private http: HttpClient) { }
 
