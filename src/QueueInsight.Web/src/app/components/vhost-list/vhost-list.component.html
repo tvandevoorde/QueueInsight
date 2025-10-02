@@ -1,0 +1,17 @@
+<div class="vhost-list">
+  <div class="header">
+    <h2>Virtual Hosts</h2>
+    <button (click)="refresh()" class="btn-refresh">Refresh</button>
+  </div>
+  
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <ul *ngIf="!loading && !error">
+    <li *ngFor="let vhost of vhosts" 
+        [class.selected]="vhost.name === selectedVhost"
+        (click)="selectVhost(vhost.name)">
+      {{ vhost.name || '/' }}
+    </li>
+  </ul>
+</div>

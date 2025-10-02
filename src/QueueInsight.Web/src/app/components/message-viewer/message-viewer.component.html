@@ -1,0 +1,107 @@
+<div class="message-viewer">
+  <div class="header">
+    <h2>Messages in {{ queue }}</h2>
+    <div class="actions">
+      <button (click)="togglePublishForm()" class="btn btn-success">Publish</button>
+      <button (click)="toggleMoveForm()" class="btn btn-warning">Move</button>
+      <button (click)="refresh()" class="btn btn-primary">Refresh</button>
+    </div>
+  </div>
+
+  <!-- Publish Form -->
+  <div *ngIf="showPublishForm" class="form-panel">
+    <h3>Publish Message</h3>
+    <textarea [(ngModel)]="newMessagePayload" 
+              placeholder="Enter message payload" 
+              rows="5"></textarea>
+    <div class="form-actions">
+      <button (click)="publishMessage()" class="btn btn-success">Send</button>
+      <button (click)="togglePublishForm()" class="btn btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Move Form -->
+  <div *ngIf="showMoveForm" class="form-panel">
+    <h3>Move Messages</h3>
+    <div class="form-group">
+      <label>Destination VHost:</label>
+      <input [(ngModel)]="moveToVhost" type="text" />
+    </div>
+    <div class="form-group">
+      <label>Destination Queue:</label>
+      <input [(ngModel)]="moveToQueue" type="text" />
+    </div>
+    <div class="form-group">
+      <label>Number of Messages:</label>
+      <input [(ngModel)]="moveCount" type="number" min="1" />
+    </div>
+    <div class="form-actions">
+      <button (click)="moveMessages()" class="btn btn-warning">Move</button>
+      <button (click)="toggleMoveForm()" class="btn btn-secondary">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Delete Section -->
+  <div class="delete-section">
+    <label>Delete Messages:</label>
+    <input [(ngModel)]="deleteCount" type="number" min="1" />
+    <button (click)="deleteMessages()" class="btn btn-danger">Delete</button>
+  </div>
+
+  <!-- Message Count Control -->
+  <div class="message-count">
+    <label>Messages to peek:</label>
+    <input [(ngModel)]="messageCount" type="number" min="1" max="100" />
+    <button (click)="loadMessages()" class="btn btn-secondary">Load</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading messages...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- Messages List -->
+  <div *ngIf="!loading && !error" class="messages-container">
+    <div *ngIf="messages.length === 0" class="no-messages">
+      No messages in queue
+    </div>
+
+    <div *ngFor="let message of messages; let i = index" 
+         class="message-item"
+         [class.selected]="message === selectedMessage"
+         (click)="selectMessage(message)">
+      <div class="message-header">
+        <span class="message-index">#{{ i + 1 }}</span>
+        <span *ngIf="message.redelivered" class="badge-redelivered">Redelivered</span>
+      </div>
+      <div class="message-payload">
+        {{ message.payload }}
+      </div>
+      <div class="message-meta">
+        <span>Size: {{ message.payloadBytes }} bytes</span>
+        <span *ngIf="message.exchange">Exchange: {{ message.exchange }}</span>
+        <span *ngIf="message.routingKey">Routing Key: {{ message.routingKey }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selected Message Details -->
+  <div *ngIf="selectedMessage" class="message-details">
+    <h3>Message Details</h3>
+    <div class="detail-item">
+      <strong>Payload:</strong>
+      <pre>{{ selectedMessage.payload }}</pre>
+    </div>
+    <div class="detail-item">
+      <strong>Encoding:</strong>
+      <span>{{ selectedMessage.payloadEncoding }}</span>
+    </div>
+    <div class="detail-item">
+      <strong>Size:</strong>
+      <span>{{ selectedMessage.payloadBytes }} bytes</span>
+    </div>
+    <div class="detail-item" *ngIf="selectedMessage.properties">
+      <strong>Properties:</strong>
+      <pre>{{ selectedMessage.properties | json }}</pre>
+    </div>
+    <button (click)="selectedMessage = null" class="btn btn-secondary">Close</button>
+  </div>
+</div>
