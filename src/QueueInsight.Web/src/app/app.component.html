@@ -1,0 +1,32 @@
+<div class="container">
+  <header>
+    <h1>{{ title }}</h1>
+    <p class="subtitle">RabbitMQ Queue Explorer</p>
+  </header>
+
+  <div class="content">
+    <div class="left-panel">
+      <app-vhost-list 
+        (vhostSelected)="onVhostSelected($event)">
+      </app-vhost-list>
+      
+      <app-queue-list 
+        *ngIf="selectedVhost"
+        [vhost]="selectedVhost"
+        (queueSelected)="onQueueSelected($event)">
+      </app-queue-list>
+    </div>
+
+    <div class="right-panel">
+      <app-message-viewer 
+        *ngIf="selectedVhost && selectedQueue"
+        [vhost]="selectedVhost"
+        [queue]="selectedQueue">
+      </app-message-viewer>
+      
+      <div *ngIf="!selectedVhost || !selectedQueue" class="placeholder">
+        <p>Select a virtual host and queue to view messages</p>
+      </div>
+    </div>
+  </div>
+</div>

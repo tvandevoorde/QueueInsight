@@ -1,0 +1,104 @@
+.queue-list {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+  }
+}
+
+.btn-refresh {
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  
+  &:hover {
+    background: #0056b3;
+  }
+}
+
+.loading, .error, .no-data {
+  padding: 10px;
+  text-align: center;
+}
+
+.error {
+  color: #dc3545;
+}
+
+.no-data {
+  color: #999;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+  li {
+    padding: 12px;
+    margin-bottom: 5px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    
+    &:hover {
+      background: #e9ecef;
+    }
+    
+    &.selected {
+      background: #007bff;
+      color: white;
+      
+      .badge {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+    }
+  }
+}
+
+.queue-name {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.queue-stats {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  background: #e9ecef;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  
+  &.ready {
+    background: #d4edda;
+    color: #155724;
+  }
+  
+  &.unacked {
+    background: #fff3cd;
+    color: #856404;
+  }
+}

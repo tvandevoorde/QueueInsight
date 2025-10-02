@@ -1,0 +1,6 @@
+@QueueInsight.Api_HostAddress = http://localhost:5222
+
+GET {{QueueInsight.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

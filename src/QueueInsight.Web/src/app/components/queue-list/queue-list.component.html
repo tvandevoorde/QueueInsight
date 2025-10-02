@@ -1,0 +1,26 @@
+<div class="queue-list">
+  <div class="header">
+    <h2>Queues</h2>
+    <button (click)="refresh()" class="btn-refresh">Refresh</button>
+  </div>
+  
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  
+  <ul *ngIf="!loading && !error">
+    <li *ngFor="let queue of queues" 
+        [class.selected]="queue.name === selectedQueue"
+        (click)="selectQueue(queue.name)">
+      <div class="queue-name">{{ queue.name }}</div>
+      <div class="queue-stats">
+        <span class="badge">{{ queue.messages }} messages</span>
+        <span class="badge ready">{{ queue.messagesReady }} ready</span>
+        <span class="badge unacked">{{ queue.messagesUnacknowledged }} unacked</span>
+      </div>
+    </li>
+  </ul>
+  
+  <div *ngIf="!loading && !error && queues.length === 0" class="no-data">
+    No queues found
+  </div>
+</div>
